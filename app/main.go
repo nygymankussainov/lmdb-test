@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	path := "./db-test"
+	path := "/etc/db-test"
 	name := "DBI"
 	env, err := lmdb.NewEnv()
 	if err != nil {
@@ -41,6 +41,8 @@ func main() {
 			return err
 		}
 		err = txn.Put(dbi, []byte("ping"), []byte("pong"), 0)
+		fmt.Printf("\n%s\n", "put in DB")
+		fmt.Printf("\n%s\n", "ping")
 		return err
 	})
 	if err != nil {
@@ -52,7 +54,8 @@ func main() {
 			return err
 		}
 		val, err := txn.Get(dbi, []byte("ping"))
-		fmt.Println(string(val))
+		fmt.Printf("\n%s\n", "get from DB")
+		fmt.Printf("\n%s\n", val)
 		return err
 	})
 	if err != nil {
